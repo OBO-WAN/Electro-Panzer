@@ -294,6 +294,12 @@ h3 {
   transform: translateY(-2px);
 }
 
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
 .button-primary {
   color: #101010;
   background: linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -530,6 +536,32 @@ h3 {
 
 .contact-form textarea {
   resize: vertical;
+}
+
+.contact-form input[aria-invalid="true"],
+.contact-form textarea[aria-invalid="true"] {
+  border-color: #ff8a8a;
+}
+
+.field-error {
+  min-height: 1.1rem;
+  margin: -6px 0 2px;
+  color: #ffb3b3;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.privacy-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+
+.privacy-field input {
+  width: auto;
+  margin-top: 2px;
+  accent-color: var(--gold);
 }
 
 .floating-whatsapp {
