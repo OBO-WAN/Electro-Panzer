@@ -29,6 +29,10 @@ body {
   line-height: 1.6;
 }
 
+body.nav-open {
+  overflow: hidden;
+}
+
 body::before {
   position: fixed;
   inset: 0;
@@ -97,8 +101,101 @@ textarea {
   display: none;
 }
 
+.nav-toggle {
+  position: relative;
+  z-index: 25;
+  display: inline-grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  color: var(--gold-light);
+  background: linear-gradient(145deg, rgba(244, 180, 0, 0.16), rgba(255, 255, 255, 0.04));
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.nav-toggle:hover,
+.nav-toggle:focus-visible {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(244, 180, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+.nav-toggle-line {
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform 220ms ease, opacity 180ms ease;
+}
+
+.nav-toggle-line:nth-child(1) {
+  transform: translateY(-7px);
+}
+
+.nav-toggle-line:nth-child(3) {
+  transform: translateY(7px);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-line:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-line:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-line:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
 .nav-menu {
-  display: none;
+  position: fixed;
+  top: 71px;
+  left: 16px;
+  right: 16px;
+  z-index: 20;
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid rgba(244, 180, 0, 0.32);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(25, 25, 25, 0.98), rgba(5, 5, 5, 0.98));
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-14px) scale(0.98);
+  transform-origin: top right;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.nav-menu.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.nav-menu a {
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  color: var(--muted);
+  background: rgba(0, 0, 0, 0.24);
+  font-size: 0.84rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.nav-menu a:hover,
+.nav-menu a:focus-visible {
+  border-color: var(--line);
+  color: var(--gold-light);
+  background: rgba(244, 180, 0, 0.08);
 }
 
 .hero {
@@ -468,24 +565,52 @@ h3 {
 }
 
 @media (min-width: 680px) {
-  .brand-text,
-  .nav-menu {
+  body.nav-open {
+    overflow: auto;
+  }
+
+  .brand-text {
     display: flex;
   }
 
+  .nav-toggle {
+    display: none;
+  }
+
   .nav-menu {
+    position: static;
+    z-index: auto;
+    display: flex;
     align-items: center;
     gap: 18px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
     color: var(--muted);
+    background: transparent;
+    box-shadow: none;
     font-size: 0.78rem;
     font-weight: 900;
     letter-spacing: 0.08em;
+    opacity: 1;
+    pointer-events: auto;
     text-transform: uppercase;
+    transform: none;
+    transition: none;
+  }
+
+  .nav-menu a {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    font-size: inherit;
   }
 
   .nav-menu a:hover,
   .nav-menu a:focus-visible {
     color: var(--gold-light);
+    background: transparent;
   }
 
   .hero-actions,
